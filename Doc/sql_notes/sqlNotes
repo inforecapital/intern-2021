@@ -1,0 +1,26 @@
+Source from https://www.sqltutorial.org/
+SQL AGGREGATE FUNCTIONS:
+    SQL AVG
+    SQL COUNT
+    SQL MAX
+    SQL MIN
+    SQL SUM
+
+SQL CONSTRAINTS
+    SQL Primary Key
+    SQL Foreign Key
+    SQL UNIQUE Constraint
+    SQL CHECK Constraint
+    SQL NOT NULL Constraint
+
+SQL Table management:
+    Create table syntax: 
+
+    ``` SQL
+    CREATE TABLE table_name(
+     column_name_1 data_type default value column_constraint,
+     column_name_2 data_type default value column_constraint,
+     ...,
+     table_constraint
+    );```
+
