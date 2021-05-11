@@ -16,4 +16,4 @@
 
 [Study SQL syntax](./Doc/sql_notes/sqlNotes.md)
 
-[Week1 工作内容记录](./202105_weel1/readme.md)
+[Week1 工作内容记录](./202105_week1/readme.md)
