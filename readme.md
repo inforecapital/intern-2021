@@ -1,16 +1,18 @@
 # Link summary
 
-[平台网页](http://dev.home.ei.infore.com/document/manual)
+* [平台网页](http://dev.home.ei.infore.com/document/manual)
 
-[平台手册](http://dev.home.ei.infore.com/document/manual)
+* [平台手册](http://dev.home.ei.infore.com/document/manual)
 
-[Docker file](https://github.com/Jacobbishopxy/dockerfile) (主要是用于构建 docker image 和 container)
+* [Docker file](https://github.com/Jacobbishopxy/dockerfile) (主要是用于构建 docker image 和 container)
 
-[DB 可视化客户端](https://github.com/dbeaver/dbeaver) (DB server 就放在 Ubuntu 的 docker 里面)
+* [DB 可视化客户端](https://github.com/dbeaver/dbeaver) (DB server 就放在 Ubuntu 的 docker 里面)
 
-[readme.md 格式参考](https://github.com/Jacobbishopxy/note-rust-lang)
+* [readme.md 格式参考](https://github.com/Jacobbishopxy/note-rust-lang)
 
-[项目原型](https://github.com/Jacobbishopxy/cyberbrick)(偏前端)
+* [项目原型](https://github.com/Jacobbishopxy/cyberbrick)(偏前端)
+
+* [WSL自动启动docker](https://dev.to/bowmanjd/install-docker-on-windows-wsl-without-docker-desktop-34m9)
 
 ## Week1 progress
 
