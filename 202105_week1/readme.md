@@ -24,13 +24,30 @@ end date: 05.14
 
 ## 2021/05/10
 
-1. 配置并尝试了docker的sample code
+1. 配置并尝试了 docker 的 sample code
 
-2. 尝试按照readme的指示在本机运行cyberbrick
+2. 尝试按照 readme 的指示在本机运行 cyberbrick
 
-3. 了解并学习了docker的相关内容
+3. 了解并学习了 docker 的相关内容
 
 4. 了解并讨论了现有以及将来需要实现的数据库数据模型
+
+## 2021/05/12
+
+1. 学习 docker 与 postgresql 的基本使用方法
+
+   - 学习了docker基本概念：image，container，volumn
+   - 学习postgresql 常用的command以及实验性的用command进行数据库的操作
+   - 着重了解 postgresql 中如何创建用户，赋予用户对于 database 的不同权限，以及修改权限。
+2. 写了一个create_user_and_grant.sh的bash file，可以通过键盘读入一个username，然后在数据库中创建对应的user，并给予该user目前存储的8个数据库的所有权限（读写修改创建删除）
+   - push bash file to github repo
+3. 新建了8个数据库，并按照中文对照翻译成对应的database name
+
+## 2021/05/13
+
+1. 为create_user_and_grant.sh的bash file增加了输入password的功能，如果input的password是empty string则使用默认password
+   - 为测试password写了一个revoke and drop user的bash file，可以revoke user所有的权限并drop
+2. 在系统平台上连接上了昨天新建的八个数据库
 
 ## Docker
 
@@ -56,7 +73,7 @@ Please add the directory containing pg_config to the PATH
 
 or specify the full executable path with the option:
 
-   python setup.py build_ext --pg-config /path/to/pg_config build ...
+python setup.py build_ext --pg-config /path/to/pg_config build ...
 
 Solution: `sudo apt-get install libpq-dev python-dev`
 
@@ -72,14 +89,14 @@ mysql-config is in a different package, which can be installed from (again, assu
 
 Issue: Key ‘auto_activate_base’ is not a known primitive parameter.
 
-Solution: 版本太低，# 升级conda
+Solution: 版本太低，# 升级 conda
 `conda update -n base -c defaults conda`
 
 Issue with executing `pip install -r requirements.txt`
 Solution: `conda activate py39`
 
 Issue with executing `yarn` in web folder:
-Solution:  got the wrong yarn. The yarn you're executing comes from the cmdtest package. Uninstalling cmdtest first should fix this:
+Solution: got the wrong yarn. The yarn you're executing comes from the cmdtest package. Uninstalling cmdtest first should fix this:
 
 `sudo apt remove cmdtest`
 

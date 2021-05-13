@@ -14,6 +14,8 @@
 
 * [WSL自动启动docker](https://dev.to/bowmanjd/install-docker-on-windows-wsl-without-docker-desktop-34m9)
 
+* [Rust material](https://romankudryashov.com/blog/2020/12/graphql-rust/#_conclusion)
+
 ## Week1 progress
 
 [Study SQL syntax](./Doc/sql_notes/sqlNotes.md)

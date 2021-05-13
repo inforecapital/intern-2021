@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION grantAccessToAll ()
+RETURNS integer AS $total$
+declare
+	total integer;
+BEGIN
+   SELECT count(*) into total FROM COMPANY;
+   RETURN total;
+END;
