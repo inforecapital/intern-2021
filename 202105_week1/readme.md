@@ -36,18 +36,21 @@ end date: 05.14
 
 1. 学习 docker 与 postgresql 的基本使用方法
 
-   - 学习了docker基本概念：image，container，volumn
-   - 学习postgresql 常用的command以及实验性的用command进行数据库的操作
+   - 学习了 docker 基本概念：image，container，volumn
+   - 学习 postgresql 常用的 command 以及实验性的用 command 进行数据库的操作
    - 着重了解 postgresql 中如何创建用户，赋予用户对于 database 的不同权限，以及修改权限。
-2. 写了一个create_user_and_grant.sh的bash file，可以通过键盘读入一个username，然后在数据库中创建对应的user，并给予该user目前存储的8个数据库的所有权限（读写修改创建删除）
+
+2. 写了一个 create_user_and_grant.sh 的 bash file，可以通过键盘读入一个 username，然后在数据库中创建对应的 user，并给予该 user 目前存储的 8 个数据库的所有权限（读写修改创建删除）
    - push bash file to github repo
-3. 新建了8个数据库，并按照中文对照翻译成对应的database name
+3. 新建了 8 个数据库，并按照中文对照翻译成对应的 database name
 
 ## 2021/05/13
 
-1. 为create_user_and_grant.sh的bash file增加了输入password的功能，如果input的password是empty string则使用默认password
-   - 为测试password写了一个revoke and drop user的bash file，可以revoke user所有的权限并drop
+1. 为 create_user_and_grant.sh 的 bash file 增加了输入 password 的功能，如果 input 的 password 是 empty string 则使用默认 password
+   - 为测试 password 写了一个 revoke and drop user 的 bash file，可以 revoke user 所有的权限并 drop
 2. 在系统平台上连接上了昨天新建的八个数据库
+3. 开始整理 excel 数据，处理成可以录入数据库的形式
+   - 20210325——Tecent_model_revised
 
 ## Docker
 
