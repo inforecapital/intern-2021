@@ -52,6 +52,20 @@ end date: 05.14
 3. 开始整理 excel 数据，处理成可以录入数据库的形式
    - 20210325——Tecent_model_revised
 
+## 2021/05/14
+
+1. 继续表20210325_Tecent_model_revised的数据整理
+   - 转置表
+   - 整理表达时间的格式
+   - 整理column name的缩进，保证column name都在第一行
+   - 删除空白列
+   - 完成整理
+2. 开始并完成了表20210419_MS_Tencent_Model的数据整理
+   - similar to the process above
+3. 学习了Rust
+   - 所有权
+4. 开始学习pandas
+
 ## Docker
 
 Install and run demo of basic focker files

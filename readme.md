@@ -20,6 +20,8 @@
 
 [Study SQL syntax](./Doc/sql_notes/sqlNotes.md)
 
+[Study postgresql](./Doc/PostgresqlNotes.md)
+
 [Week1 工作内容记录](./202105_week1/readme.md)
 
 ## TODO
@@ -30,3 +32,17 @@
 2. write makefile for cyberbrick
 
 3. write dockerfile for airflow
+
+4. write bash and makefile study notes
+
+## study list
+
+### Python
+
+1. [10 minutes to pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html): Python data analysis package
+1. [SqlAlchemy](https://www.sqlalchemy.org/): Python Sql toolkit
+
+### Sql
+
+1. [Sql Tutorial](https://www.sqltutorial.org/): A tutorial of Sql
+1. [PostgreSql](https://www.postgresql.org/docs/13/index.html): An open source object-relational database
