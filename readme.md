@@ -24,10 +24,15 @@
 
 [Week1 工作内容记录](./202105_week1/readme.md)
 
+## Week2 progress
+
+[Week2 工作内容记录](./202105_week2/readme.md)
+
 ## TODO
 
 1. study pandas and sqlAcademy
-    - try to run python script on purified data
+
+   - try to run python script on purified data
 
 2. write makefile for cyberbrick
 
