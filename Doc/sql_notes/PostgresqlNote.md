@@ -119,7 +119,7 @@ INHERIT 权限：该属性使组成员拥有组的所有权限
 删除用户和组很简单:
 
 `DROP ROLE role_name;`
-`dDROP ROLE IF EXISTS role_name;`
+`DROP ROLE IF EXISTS role_name;`
 
 删除组 role 只会删除组的 role 本身，组的成员并不会被删除
 

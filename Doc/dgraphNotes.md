@@ -23,6 +23,9 @@ Dgraph支持单机部署和集群部署两种方式. 在Dgraph中有zero, alpha,
 ACL Account
 The ACL Account login is necessary only when you have ACL features enabled.
 
+The latest version (starting v.21), docker image for ratel is separated from docker image of alpha and zero. 
+For now we use an old image.
+
 Note The default password for a cluster started from scratch is password and the user is groot.
 
 ## Client
