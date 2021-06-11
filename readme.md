@@ -16,6 +16,16 @@
 
 - [Rust material](https://romankudryashov.com/blog/2020/12/graphql-rust/#_conclusion)
 
+## 笔记汇总
+
+- [sql notes](./Doc/sql_notes/SQL.md)
+- [postgresql notes](./Doc/sql_notes/PostgreswlNote.md)
+- [makefile notes](./Doc/makefileNotes.md)
+- [pandas notes](./Doc/pandasNotes.md)
+- [Docker notes](./Doc/DockerNotes.md)
+- [Dgraph notes](./Doc/dgraphNotes.md)
+- [gRPC notes](./Doc/gRPCNotes.md)
+
 ## Week1 progress
 
 [Study SQL syntax](./Doc/sql_notes/sqlNotes.md)
@@ -27,6 +37,14 @@
 ## Week2 progress
 
 [Week2 工作内容记录](./202105_week2/readme.md)
+
+## Week3 progress
+
+[Week3 工作内容以及遇到的bug记录](./202105_week3/readme.md)
+
+## June Week1 progress
+
+[Week1 工作内容以及遇到的bug记录](./202106_week1/readme.md)
 
 ## TODO
 
@@ -46,8 +64,3 @@
 
 1. [10 minutes to pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html): Python data analysis package
 1. [SqlAlchemy](https://www.sqlalchemy.org/): Python Sql toolkit
-
-### Sql
-
-1. [Sql Tutorial](https://www.sqltutorial.org/): A tutorial of Sql
-1. [PostgreSql](https://www.postgresql.org/docs/13/index.html): An open source object-relational database

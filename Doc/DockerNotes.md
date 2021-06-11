@@ -25,21 +25,21 @@ In simple terms, an image is a template, and a container is a copy of that templ
 [source](https://takacsmark.com/dockerfile-tutorial-by-example-dockerfile-best-practices-2018/#minimize-the-number-of-steps-in-the-dockerfile)
 We’ll cover the following basic instructions to get you started:
 
-- FROM - every Dockerfile starts with FROM, with the introduction of multi-stage builds as of version 17.05, you can have more than one FROM instruction in one Dockerfile.
+- `FROM` - every Dockerfile starts with FROM, with the introduction of multi-stage builds as of version 17.05, you can have more than one FROM instruction in one Dockerfile.
   · There is one instruction that you can put before FROM into your Dockerfile. This instruction is ARG. ARG is used to specify arguments for the docker build command with the --build-arg <varname>=<value> flag.
   You can have more than one FROM instructions in your Dockerfile. You will want to use this feature, for example, when you use one base image to build your app and another base image to run it.
-- COPY vs ADD - these two are often confused, so I’ll explain the difference.
-- ENV - well, setting environment variables is pretty important.
-- RUN - let’s run commands.
+- `COPY` vs `ADD` - these two are often confused, so I’ll explain the difference.
+- `ENV` - well, setting environment variables is pretty important.
+- `RUN` - let’s run commands.
   · You’ll use a lot of apt-get type of commands to add new packages to your image. It’s always advisable to put apt-get update and apt-get install commands on the same line. This is important because of layer caching. Having these on two separate lines would mean that if you add a new package to your install list, the layer with apt-get update will not be invalidated in the layer cache and you might end up in a mess.
   · RUN has two forms; RUN <command> (called shell form) and RUN ["executable", "param1", "param2"] called exec form. Please note that RUN <command> will invoke a shell automatically (/bin/sh -c by default), while the exec form will not invoke a command shell
-  VOLUME - another source of confusion, what’s the difference between Dockerfile VOLUME and container volumes?
-  USER - when root is too mainstream.
-  WORKDIR - set the working directory.
-  EXPOSE - get your ports right.
-  ONBUILD - give more flexibility to your team and clients.
+  `VOLUME` - another source of confusion, what’s the difference between Dockerfile VOLUME and container volumes?
+  `USER` - when root is too mainstream.
+  `WORKDIR` - set the working directory.
+  `EXPOSE` - get your ports right.
+  `ONBUILD` - give more flexibility to your team and clients.
 
-CMD vs ENTRYPOINT
+`CMD` vs `ENTRYPOINT`
 
 ![alt text](https://img.jbzj.com/file_images/article/201803/2018031211363722.png)
 
