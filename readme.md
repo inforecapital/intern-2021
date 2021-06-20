@@ -27,7 +27,7 @@
 - [gRPC notes](./Doc/gRPCNotes.md)
 - [the way to GO chapter 1-8 notes](./Doc/GO/go_notes_chapter1-8.md)
 - [the way to GO chapter 9-14 notes](./Doc/GO/go_notes_chapter9-.md)
-- [React notes](./Doc/reactNotes.md)
+- [React notes]((./Doc/reactNotes.md))
 
 ## Week1 progress
 
