@@ -5,20 +5,20 @@ end date: 05.14
 
 ## 2021/05/07
 
-1. 办理入职手续，初步熟悉公司
+1. 办理入职手续,初步熟悉公司
 
-2. 在笔记本中安装并配置了开发所需的 Linux 环境，IDE，Docker（数据库），anaconda（python 软件包），git 等。
+2. 在笔记本中安装并配置了开发所需的 Linux 环境,IDE,Docker（数据库）,anaconda（python 软件包）,git 等。
 
 3. 了解了现有的公司数据库系统的使用方法以及背后的基础逻辑
    阅读了系统使用手册
 
-4. 学习到了数据库背后的简单交互逻辑，以及了解了未来的开发方向是构造一个可客制化的非线性数据库
+4. 学习到了数据库背后的简单交互逻辑,以及了解了未来的开发方向是构造一个可客制化的非线性数据库
 
-   - ETL:提取（extract）网页上上传的资料，向服务器请求数据，获得数据后进行处理（transform），处理完毕后返回给服务器在网页上更新内容（load）
+   - ETL:提取（extract）网页上上传的资料,向服务器请求数据,获得数据后进行处理（transform）,处理完毕后返回给服务器在网页上更新内容（load）
 
-   - 非线性/图像数据库是 web 状图，一个 node 里面存储多个 subitem，点进 subitem 可以查看详细信息。另有单向/双向箭头可以指代不同 node 间，同一个 node 的 items 间，以及不同 nodes 不同 items 间的关系。
+   - 非线性/图像数据库是 web 状图,一个 node 里面存储多个 subitem,点进 subitem 可以查看详细信息。另有单向/双向箭头可以指代不同 node 间,同一个 node 的 items 间,以及不同 nodes 不同 items 间的关系。
 
-   - 现有的非线性/图像数据库只可以读取，无法修改，因此无法对数据进行更新或者展示数据处理结果
+   - 现有的非线性/图像数据库只可以读取,无法修改,因此无法对数据进行更新或者展示数据处理结果
 
    - 因此需要一个客制化的系统来允许修改数据库内容
 
@@ -36,41 +36,41 @@ end date: 05.14
 
 1. 学习 docker 与 postgresql 的基本使用方法
 
-   - 学习了 docker 基本概念：image，container，volumn
+   - 学习了 docker 基本概念:image,container,volumn
    - 学习 postgresql 常用的 command 以及实验性的用 command 进行数据库的操作
-   - 着重了解 postgresql 中如何创建用户，赋予用户对于 database 的不同权限，以及修改权限。
+   - 着重了解 postgresql 中如何创建用户,赋予用户对于 database 的不同权限,以及修改权限。
 
-2. 写了一个 create_user_and_grant.sh 的 bash file，可以通过键盘读入一个 username，然后在数据库中创建对应的 user，并给予该 user 目前存储的 8 个数据库的所有权限（读写修改创建删除）
+2. 写了一个 create_user_and_grant.sh 的 bash file,可以通过键盘读入一个 username,然后在数据库中创建对应的 user,并给予该 user 目前存储的 8 个数据库的所有权限（读写修改创建删除）
    - push bash file to github repo
-3. 新建了 8 个数据库，并按照中文对照翻译成对应的 database name
+3. 新建了 8 个数据库,并按照中文对照翻译成对应的 database name
 
 ## 2021/05/13
 
-1. 为 create_user_and_grant.sh 的 bash file 增加了输入 password 的功能，如果 input 的 password 是 empty string 则使用默认 password
-   - 为测试 password 写了一个 revoke and drop user 的 bash file，可以 revoke user 所有的权限并 drop
+1. 为 create_user_and_grant.sh 的 bash file 增加了输入 password 的功能,如果 input 的 password 是 empty string 则使用默认 password
+   - 为测试 password 写了一个 revoke and drop user 的 bash file,可以 revoke user 所有的权限并 drop
 2. 在系统平台上连接上了昨天新建的八个数据库
-3. 开始整理 excel 数据，处理成可以录入数据库的形式
+3. 开始整理 excel 数据,处理成可以录入数据库的形式
    - 20210325——Tecent_model_revised
 
 ## 2021/05/14
 
-1. 继续表20210325_Tecent_model_revised的数据整理
+1. 继续表 20210325_Tecent_model_revised 的数据整理
    - 转置表
    - 整理表达时间的格式
-   - 整理column name的缩进，保证column name都在第一行
+   - 整理 column name 的缩进,保证 column name 都在第一行
    - 删除空白列
    - 完成整理
-2. 开始并完成了表20210419_MS_Tencent_Model的数据整理
+2. 开始并完成了表 20210419_MS_Tencent_Model 的数据整理
    - similar to the process above
-3. 学习了Rust
+3. 学习了 Rust
    - 所有权
-4. 开始学习pandas
+4. 开始学习 pandas
 
 ## Docker
 
 Install and run demo of basic focker files
 
-遇到的问题：when run docker command, got "Cannot connect to the Docker daemon at (unix:///var/run/docker.sock. Is the docker daemon running?)"
+遇到的问题:when run docker command, got "Cannot connect to the Docker daemon at (unix:///var/run/docker.sock. Is the docker daemon running?)"
 
 Solution: systemctl command doesn't work.
 Then I found the following: "If you are using the SysV init system, then the systemctl command will not work for you. We will need to use the service command to start docker daemon."
@@ -106,7 +106,7 @@ mysql-config is in a different package, which can be installed from (again, assu
 
 Issue: Key ‘auto_activate_base’ is not a known primitive parameter.
 
-Solution: 版本太低，# 升级 conda
+Solution: 版本太低,# 升级 conda
 `conda update -n base -c defaults conda`
 
 Issue with executing `pip install -r requirements.txt`

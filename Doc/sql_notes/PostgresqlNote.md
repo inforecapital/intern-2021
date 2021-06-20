@@ -6,47 +6,47 @@ psql -U user -d dbname
 
 切换数据库,相当于 mysql 的 use dbname
 \c dbname
-列举数据库，相当于 mysql 的 show databases
+列举数据库,相当于 mysql 的 show databases
 \l
-列举表，相当于 mysql 的 show tables
+列举表,相当于 mysql 的 show tables
 \dt
-查看表结构，相当于 desc tblname,show columns from tbname
+查看表结构,相当于 desc tblname,show columns from tbname
 \d tblname
 
 \di 查看索引
 
-创建数据库：
+创建数据库:
 create database [数据库名];
-删除数据库：
+删除数据库:
 drop database [数据库名];  
-*重命名一个表：
+*重命名一个表:
 alter table [表名 A] rename to [表名 B];
-*删除一个表：
+*删除一个表:
 drop table [表名];
 
-*在已有的表里添加字段：
+*在已有的表里添加字段:
 alter table [表名] add column [字段名] [类型];
-*删除表中的字段：
+*删除表中的字段:
 alter table [表名] drop column [字段名];
-*重命名一个字段：  
+*重命名一个字段:  
 alter table [表名] rename column [字段名 A] to [字段名 B];
-*给一个字段设置缺省值：  
+*给一个字段设置缺省值:  
 alter table [表名] alter column [字段名] set default [新的默认值];
-\_去除缺省值：  
+\_去除缺省值:  
 alter table [表名] alter column [字段名] drop default;
-在表中插入数据：
+在表中插入数据:
 insert into 表名 ([字段名 m],[字段名 n],......) values ([列 m 的值],[列 n 的值],......);
-修改表中的某行某列的数据：
+修改表中的某行某列的数据:
 update [表名] set [目标字段名]=[目标值] where [该行特征];
-删除表中某行数据：
+删除表中某行数据:
 delete from [表名] where [该行特征];
 delete from [表名];--删空整个表
-创建表：
+创建表:
 create table ([字段名 1] [类型 1] ;,[字段名 2] [类型 2],......<,primary key (字段名 m,字段名 n,...)>;);
 \copyright 显示 PostgreSQL 的使用和发行条款
 \encoding [字元编码名称]
 显示或设定用户端字元编码
-\h [名称] SQL 命令语法上的说明，用\* 显示全部命令
+\h [名称] SQL 命令语法上的说明,用\* 显示全部命令
 \prompt [文本] 名称
 提示用户设定内部变数
 \password [USERNAME]
@@ -59,7 +59,7 @@ CREATE ROLE rolename;
 `CREATE ROLE rolename;`
 方式 2:在 PostgresSQL 命令行中使用 CREATE USER 指令创建
 `CREATE USER username;`
-CREATE USER 和 CREATE ROLE 的区别在于，CREATE USER 指令创建的用户默认是有登录权限的，而 CREATE ROLE 没有。
+CREATE USER 和 CREATE ROLE 的区别在于,CREATE USER 指令创建的用户默认是有登录权限的,而 CREATE ROLE 没有。
 
 \du 指令显示用户和用户的用户属性
 创建用户时设定用户属性
@@ -85,7 +85,7 @@ CREATE USER 和 CREATE ROLE 的区别在于，CREATE USER 指令创建的用户�
 `GRANT UPDATE ON demo TO demo_role;` --赋予 demo_role demo 表的 update 权限
 `GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC to demo_role;` --赋予 demo_role 所有表的 SELECT 权限
 
-特殊符号:ALL 代表所访问权限，PUBLIC 代表所有用户
+特殊符号:ALL 代表所访问权限,PUBLIC 代表所有用户
 `GRANT ALL ON demo TO demo_role`; --赋给用户所有权限
 `GRANT SELECT ON demo TO PUBLIC`; --将 SELECT 权限赋给所有用户
 
@@ -98,7 +98,7 @@ CREATE USER 和 CREATE ROLE 的区别在于，CREATE USER 指令创建的用户�
 其中 permission_type 和 table_name 含义与 GRANT 指令中相同。
 
 用户组
-在 postgres 中用户实际上是 role，同时组也是 role。 包含其他 role 的 role 就是组。
+在 postgres 中用户实际上是 role,同时组也是 role。 包含其他 role 的 role 就是组。
 
 创建组示例:
 
@@ -112,7 +112,7 @@ GRANT temporary_users TO test_user;
 `SET ROLE role_name;` --切换到 role_name 用户
 `RESET ROLE;` --切换回最初的 role
 
-INHERIT 权限：该属性使组成员拥有组的所有权限
+INHERIT 权限:该属性使组成员拥有组的所有权限
 `ALTER ROLE test_user INHERIT;`
 
 删除用户和组
@@ -121,9 +121,9 @@ INHERIT 权限：该属性使组成员拥有组的所有权限
 `DROP ROLE role_name;`
 `DROP ROLE IF EXISTS role_name;`
 
-删除组 role 只会删除组的 role 本身，组的成员并不会被删除
+删除组 role 只会删除组的 role 本身,组的成员并不会被删除
 
-修改用户秘密：
+修改用户秘密:
 `ALTER ROLE username WITH PASSWORD 'password';`
 
 创建带有默认密码的用户
@@ -145,7 +145,7 @@ You can pass single commands as strings using -c, or pass more complex command s
 ```bash
 sudo -u postgres psql << EOF
 SELECT COUNT(*) FROM (
-  SELECT datname FROM pg_catalog.pg_database 
+  SELECT datname FROM pg_catalog.pg_database
   WHERE lower(datname)=lower($DATABASE)
 )
 EOF

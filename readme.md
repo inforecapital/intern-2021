@@ -25,6 +25,9 @@
 - [Docker notes](./Doc/DockerNotes.md)
 - [Dgraph notes](./Doc/dgraphNotes.md)
 - [gRPC notes](./Doc/gRPCNotes.md)
+- [the way to GO chapter 1-8 notes](./Doc/GO/go_notes_chapter1-8.md)
+- [the way to GO chapter 9-14 notes](./Doc/GO/go_notes_chapter9-.md)
+- [React notes](./Doc/reactNotes.md)
 
 ## Week1 progress
 
@@ -40,11 +43,11 @@
 
 ## Week3 progress
 
-[Week3 工作内容以及遇到的bug记录](./202105_week3/readme.md)
+[Week3 工作内容以及遇到的 bug 记录](./202105_week3/readme.md)
 
-## June Week1 progress
+## June progress
 
-[Week1 工作内容以及遇到的bug记录](./202106_week1/readme.md)
+[Week1 工作内容以及遇到的 bug 记录](./202106/readme.md)
 
 ## TODO
 
@@ -57,6 +60,14 @@
 3. write dockerfile for airflow
 
 4. write bash and makefile study notes
+
+5. react-dgraph study flow
+   - javascript
+   - react concept (life cycle + Hook)
+   - react tutorial - finished
+   - Typyscript
+   - react-flow
+   - dgraph-react interation (parse json to Dgraph data structure)
 
 ## study list
 
