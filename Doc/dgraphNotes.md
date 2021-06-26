@@ -37,6 +37,7 @@ GO:
 Depending on the version of Dgraph that you are connecting to, you will have to
 use a different version of this client and their corresponding import paths.
 
+<<<<<<< HEAD
 | Dgraph version | dgo version  | dgo import path                 |
 | -------------- | ------------ | ------------------------------- |
 | dgraph 1.0.X   | dgo 1.X.Y    | "github.com/dgraph-io/dgo"      |
@@ -45,10 +46,26 @@ use a different version of this client and their corresponding import paths.
 | dgraph 20.07.0 | dgo 200.03.0 | "github.com/dgraph-io/dgo/v200" |
 | dgraph 20.11.0 | dgo 200.03.0 | "github.com/dgraph-io/dgo/v200" |
 | dgraph 21.03.0 | dgo 210.03.0 | "github.com/dgraph-io/dgo/v210" |
+=======
+Dgraph version   | dgo version   |        dgo import path          |
+---------------  | -----------   | ------------------------------- |
+  dgraph 1.0.X   |  dgo 1.X.Y    |   "github.com/dgraph-io/dgo"    |
+  dgraph 1.1.X   |  dgo 2.X.Y    | "github.com/dgraph-io/dgo/v2"   |
+  dgraph 20.03.0 |  dgo 200.03.0 | "github.com/dgraph-io/dgo/v200" |
+  dgraph 20.07.0 |  dgo 200.03.0 | "github.com/dgraph-io/dgo/v200" |
+  dgraph 20.11.0 |  dgo 200.03.0 | "github.com/dgraph-io/dgo/v200" |
+  dgraph 21.03.0 |  dgo 210.03.0 | "github.com/dgraph-io/dgo/v210" |
+>>>>>>> bfbbf87b63e92b2b683e89bd56bd3375a167e2c1
 
 Javascript (HTTP)
 Dgraph version | dgraph-js-http version |
 | :------------: | :--------------------: |
+<<<<<<< HEAD
 | >= 21.03.0 | >= _21.3.0_ |
 | >= 20.03.0 | >= _20.3.0_ |
 | >= 1.1 | >= _1.1.0_ |
+=======
+|   >= 21.03.0   |      >= _21.3.0_       |
+|   >= 20.03.0   |      >= _20.3.0_       |
+|     >= 1.1     |       >= _1.1.0_       |
+>>>>>>> bfbbf87b63e92b2b683e89bd56bd3375a167e2c1

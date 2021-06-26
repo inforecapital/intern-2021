@@ -75,3 +75,8 @@
 
 1. [10 minutes to pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html): Python data analysis package
 1. [SqlAlchemy](https://www.sqlalchemy.org/): Python Sql toolkit
+
+### Sql
+
+1. [Sql Tutorial](https://www.sqltutorial.org/): A tutorial of Sql
+1. [PostgreSql](https://www.postgresql.org/docs/13/index.html): An open source object-relational database
