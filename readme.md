@@ -63,7 +63,7 @@
 
 5. react-dgraph study flow
    - javascript
-   - react concept (life cycle + Hook)
+   - react concept (life cycle + Hook) - finished
    - react tutorial - finished
    - Typyscript
    - react-flow
