@@ -1,5 +1,127 @@
 # GO note chapter 9-
 
+## Context
+
+`Context` 机制，相互调用的 `goroutine` 之间通过传递 `context` 变量保持关联，这样在不用暴露各 `goroutine` 内部实现细节的前提下，有效地控制各 goroutine 的运行。
+![alt text](https://img2020.cnblogs.com/blog/1093617/202101/1093617-20210126142158021-2146921433.png)
+
+如此一来，通过传递 `Context` 就可以追踪 `goroutine` 调用树，并在这些调用树之间传递通知和元数据。
+虽然 `goroutine` 之间是平行的，没有继承关系，但是 Context 设计成是包含父子关系的，这样可以更好的描述 `goroutine` 调用之间的树型关系。
+
+使用：
+`Done()` 方法在 Context 被取消或超时时返回一个 `close` 的 `channel`,`close` 的 `channel` 可以作为广播通知，告诉给 `context` 相关的函数要停止当前工作然后返回。
+After the last value has been received from a closed channel c, any receive from c will succeed without blocking, returning the zero value for the channel element.
+
+Any number of goroutines can select on <-ctx.Done().
+
+Using close requires care.
+
+- closing a nil channel panics
+- closing a closed channel panics
+  Done returns a receive-only channel that can only be canceled using the cancel function returned by WithCancel. It ensures the channel is closed exactly once.
+
+当一个父 `operation` 启动一个 `goroutine` 用于子 operation，这些子 operation 不能够取消父 operation。下面描述的 `WithCancel` 函数提供一种方式可以取消新创建的 `Context`.
+
+`Context` 可以安全的被多个 `goroutine` 使用。开发者可以把一个 `Context` 传递给任意多个 `goroutine` 然后 `cancel` 这个 `context` 的时候就能够通知到所有的 `goroutine。`
+
+`Err` 方法返回 `context` 为什么被取消。
+
+`Deadline` 返回 `context` 何时会超时。
+
+`Value` 返回 `context` 相关的数据
+
+要创建 Context 树，首先就是要创建根节点
+
+```go
+// Background returns an empty Context. It is never canceled, has no deadline,
+// and has no values. Background is typically used in main, init, and tests,
+// and as the top-level Context for incoming requests.
+func Background() Context
+```
+
+`Backgound()`是所有 Context 的 root，不能够被 cancel。该 Context 通常由接收 request 的第一个 goroutine 创建，它不能被取消、没有值、也没有过期时间，常作为处理 request 的顶层 context 存在。
+
+下层 Context：`WithCancel`/`WithDeadline`/`WithTimeout`
+了根节点之后，接下来就是创建子孙节点。为了可以很好的控制子孙节点，Context 包提供的创建方法均是带有第二返回值（CancelFunc 类型），它相当于一个 Hook，在子 goroutine 执行过程中，可以通过触发 Hook 来达到控制子 goroutine 的目的（通常是取消，即让其停下来）。再配合 Context 提供的 Done 方法，子 goroutine 可以检查自身是否被父级节点 Cancel：
+
+```go
+select {
+case <-ctx.Done():
+// do some clean…
+}
+```
+
+注：父节点 Context 可以主动通过调用 cancel 方法取消子节点 Context，而子节点 Context 只能被动等待。同时父节点 Context 自身一旦被取消（如其上级节点 Cancel），其下的所有子节点 Context 均会自动被取消。
+
+有四种创建方法：
+
+```go
+//Used for passing request-scoped values. The complete signature of the function is
+
+func withValue(parent Context, key, val interface{}) (ctx Context)
+// It takes in a parent context, key, value and returns a derived context  This derived context has key associated with the value. Here the parent context can be either context.Background() or any other context. Further, any context which is derived from this context will have this value.
+// 带cancel返回值的Context，一旦cancel被调用，即取消该创建的context
+func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+
+// 带有效期cancel返回值的Context，即必须到达指定时间点调用的cancel方法才会被执行
+func WithDeadline(parent Context, deadline time.Time) (Context, CancelFunc)
+
+// 带超时时间cancel返回值的Context，类似Deadline，前者是时间点，后者为时间间隔
+// 相当于WithDeadline(parent, time.Now().Add(timeout)).
+func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
+```
+
+- context tree:
+  ![alt text](https://i2.wp.com/golangbyexample.com/wp-content/uploads/2020/09/Context-Tree-2-1.jpg?resize=231%2C206&ssl=1)
+- official suggestions:
+
+1. Do not store Contexts inside a struct type; instead, pass a Context explicitly to each function that needs it. The Context should be the first parameter, typically named ctx.
+1. Do not pass a nil Context, even if a function permits it. Pass context.TODO if you are unsure about which Context to use.
+1. Use context Values only for request-scoped data that transits processes and APIs, not for passing optional parameters to functions.
+
+
+The same Context may be passed to functions running in different goroutines; Contexts are safe for simultaneous use by multiple goroutines.
+
+http 实例：
+
+```go
+const requestIDKey int = 0
+
+func WithRequestID(next http.Handler) http.Handler {
+    return http.HandlerFunc(
+        func(rw http.ResponseWriter, req *http.Request) {
+            // 从 header 中提取 request-id
+            reqID := req.Header.Get("X-Request-ID")
+            // 创建 valueCtx。使用自定义的类型，不容易冲突
+            ctx := context.WithValue(
+                req.Context(), requestIDKey, reqID)
+
+            // 创建新的请求
+            req = req.WithContext(ctx)
+
+            // 调用 HTTP 处理函数
+            next.ServeHTTP(rw, req)
+        }
+    )
+}
+
+// 获取 request-id
+func GetRequestID(ctx context.Context) string {
+    ctx.Value(requestIDKey).(string)
+}
+
+func Handle(rw http.ResponseWriter, req *http.Request) {
+    // 拿到 reqId，后面可以记录日志等等
+    reqID := GetRequestID(req.Context())
+    ...
+}
+
+func main() {
+    handler := WithRequestID(http.HandlerFunc(Handle))
+    http.ListenAndServe("/", handler)
+}
+```
+
 ## package
 
 - `unsafe`: 包含了一些打破 `Go` 语言 “类型安全” 的命令,一般的程序中不会被使用,可用在 `C/C++` 程序的调用中。
@@ -126,6 +248,70 @@ intr := Interval{end:5}           (C)
 
 ![alt text](https://cdn.learnku.com/uploads/images/201808/27/23/OLAUFPV0cu.jpg?imageView2/2/w/1240/h/0)
 
+## struct tag
+
+Go struct tags are annotations that appear after the type in a Go struct declaration. Each tag is composed of short strings associated with some corresponding value.
+
+A struct tag looks like this, with the tag offset with backtick ` characters:
+
+```go
+type User struct {
+    Name string `example:"name"`
+}
+```
+
+The struct tag that encoding/json recognizes has a key of json and a value that controls the output. By placing the camel-cased version of the field names as the value to the json key, the encoder will use that name instead:
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "os"
+    "time"
+)
+
+type User struct {
+    Name          string    `json:"name"`
+    Password      string    `json:"password"`
+    PreferredFish []string  `json:"preferredFish"`
+    CreatedAt     time.Time `json:"createdAt"`
+}
+
+func main() {
+    u := &User{
+        Name:      "Sammy the Shark",
+        Password:  "fisharegreat",
+        CreatedAt: time.Now(),
+    }
+
+    out, err := json.MarshalIndent(u, "", "  ")
+    if err != nil {
+        log.Println(err)
+        os.Exit(1)
+    }
+
+    fmt.Println(string(out))
+}
+```
+
+This will output:
+
+```go
+Output
+{
+  "name": "Sammy the Shark",
+  "password": "fisharegreat",
+  "preferredFish": null,
+  "createdAt": "2019-09-23T18:16:17.57739-04:00"
+}
+```
+
+Within the value part of any json struct tag, you can suffix the desired name of your field with `,omitempty` to tell the JSON encoder to suppress the output of this field when the field is set to the zero value.
+`-` hide the value from output (eg: value of password)
+
 ## 结构体转换
 
 Go 中的类型转换遵循严格的规则。当为结构体定义了一个 alias 类型时,此结构体类型和它的 alias 类型都有相同的底层类型,它们可以如示例 10.3 那样互相转换,同时需要注意其中非法赋值或转换引起的编译错误。
@@ -194,7 +380,7 @@ An interface type can contain a reference to an instance of any of the types tha
 
   Go 语言规范定义了接口方法集的调用规则:
 
-  类型 *T 的可调用方法集包含接受者为 *T 或 T 的所有方法集
+  类型 *T 的可调用方法集包含接受者为*T 或 T 的所有方法集
   类型 T 的可调用方法集包含接受者为 T 的所有方法
   类型 T 的可调用方法集不包含接受者为 \*T 的方法
 

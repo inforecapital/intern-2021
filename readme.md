@@ -19,15 +19,15 @@
 ## 笔记汇总
 
 - [sql notes](./Doc/sql_notes/SQL.md)
-- [postgresql notes](./Doc/sql_notes/PostgreswlNote.md)
+- [postgresql notes](./Doc/sql_notes/PostgresqlNote.md)
 - [makefile notes](./Doc/makefileNotes.md)
-- [pandas notes](./Doc/pandasNotes.md)
+- [pandas notes](./Doc/pandasNote.md)
 - [Docker notes](./Doc/DockerNotes.md)
 - [Dgraph notes](./Doc/dgraphNotes.md)
 - [gRPC notes](./Doc/gRPCNotes.md)
 - [the way to GO chapter 1-8 notes](./Doc/GO/go_notes_chapter1-8.md)
 - [the way to GO chapter 9-14 notes](./Doc/GO/go_notes_chapter9-.md)
-- [React notes]((./Doc/reactNotes.md))
+- [React notes](<(./Doc/React/reactNotes.md)>)
 
 ## Week1 progress
 
@@ -47,7 +47,7 @@
 
 ## June progress
 
-[Week1 工作内容以及遇到的 bug 记录](./202106/readme.md)
+[June 工作内容以及遇到的 bug 记录](./202106/readme.md)
 
 ## TODO
 
@@ -62,12 +62,16 @@
 4. write bash and makefile study notes
 
 5. react-dgraph study flow
+
    - javascript
    - react concept (life cycle + Hook) - finished
    - react tutorial - finished
-   - Typyscript
-   - react-flow
+   - Typyscript -finished
+   - react-flow -created demo
    - dgraph-react interation (parse json to Dgraph data structure)
+
+   - repalce react-todo's UI to reactFlow
+   - add Go server like go-toto to above app
 
 ## study list
 

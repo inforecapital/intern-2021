@@ -56,3 +56,16 @@ https://github.com/dgraph-io/dgraph/blob/master/contrib/config/docker/docker-com
 
 - 学习 React
   [notes](./Doc/reactNotes.md)
+
+## Week3 06/21-06/25
+
+- 录了迈瑞医疗以及牧原股份的数据 （upload to cyberbrick dataset），在仪表盘上完成了对应的画图
+- 学习 Javascript, Typescript, 尝试做了一个 reactFlow 的 demo
+- 根据网上教程写了一个 go-server, mongoDB, react-UI web app, 并配置好了 makefile, dockerfile. Makefile 支持 development 以及 production 两种环境
+
+## Week4 06/28-07/04
+
+- 学习了 GO-context 是什么东西（see go_notes_chapter9-.md in Doc/GO)
+- 配置好了 supporting development mode and production mode's makefile for cycberbrick
+- 画完了海康威视以及牧原股份的图
+- 写了一个reactFlow为前端，Dgraph-http-js库为server，Dgraph为database的web app。支持动态添加以及修改nodes和edges。

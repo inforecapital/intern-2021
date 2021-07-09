@@ -1267,10 +1267,14 @@ function ChatRecipientPicker() {
 }
 ```
 
-我们将当前选择的好友 ID 保存在 `r`ecipientID` `状态变量中，并在用户从 `<select>` 中选择其他好友时更新这个 state。
+我们将当前选择的好友 ID 保存在 `recipientID` 状态变量中，并在用户从 `<select>` 中选择其他好友时更新这个 state。
 
 由于 `useState` 为我们提供了 `recipientID` 状态变量的最新值，因此我们可以将它作为参数传递给自定义的 useFriendStatus Hook：
 
 `const [recipientID, setRecipientID] = useState(1);`
 `const isRecipientOnline = useFriendStatus(recipientID);`
 如此可以让我们知道当前选中的好友是否在线。当我们选择不同的好友并更新 recipientID 状态变量时，useFriendStatus Hook 将会取消订阅之前选中的好友，并订阅新选中的好友状态。
+
+## useCallback
+
+[理解React hook useCallback作用](https://blog.csdn.net/weixin_43905830/article/details/109008628)
