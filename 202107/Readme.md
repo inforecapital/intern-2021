@@ -12,7 +12,8 @@
     - 只有从Dgraph获取到了uid才可以存edge
     - 这样就无法一次性加新的node和edge
     - 这种情况需要server发起一个transaction，与数据库交互两次，一次存node，一次获取uid后存edge。若中途失败则rollback
-
+4. 写完了ua-viz-server的selection的interface
+5. 完成公司搬家，now base in科技园
 
 [docker网关冲突导致启动docker容器时服务器网络断开](https://blog.csdn.net/HYESC/article/details/88688884)
 
