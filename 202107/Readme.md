@@ -15,6 +15,27 @@
 4. 写完了ua-viz-server的selection的interface
 5. 完成公司搬家，now base in科技园
 
+## 07/12 - 07/18
+
+1. 创建了自己的blog, based on Hugo, 通过github action自动deploy
+    [build.yml参考](https://blog.csdn.net/weixin_41263449/article/details/107584336)
+    [secret token reference](https://immmmm.com/hugo-github-actions/)
+
+1. 实现了可以对应viz-server接口的selection form
+    - submit之后可以把用户的input convert成接口对应的json object
+    - 可以内嵌最多两层and/Or逻辑
+    - 还需要添加select database才能实现query
+1. 用ReactGridLayout实现了一个可以dynamically 添加/删除的header。有editable和static两种state。点击对应的tab可以更新对应的tabPane
+1. 开始实现cyberbrick的API，目前基本完成了内嵌UI，还需要继续完善API功能以及ref的用法
+
+## 07/19 - 07/25
+
+1. 写好了nestedSimpleModule的demo，并migrate到cyberbrick上。支持dynamically add and remove tabs, add and remove module for a tab, and save and load to/from database.
+1. 修改了cyberbrick dashboard exit后module仍可以编辑的bug。用useEffect监听props.editable并通过ref修改modulePanel的edit状态
+1. 写了editable content tabs的demo。点击edit button会触发add modal。modal中支持icon和article两种选择。选择article的话会弹出input box。点击完成后tab会显示modal中选择的内容。
+1. 修改了layout无法save的bug。将onLayoutChange作为props给ReactGridLayout，并update items（存tab的布局信息）。现在tabs在editable的状态下is resizable and draggable. Save后布局信息会保存。
+1. 为cyberbrick makefile添加了make debug的target
+
 [docker网关冲突导致启动docker容器时服务器网络断开](https://blog.csdn.net/HYESC/article/details/88688884)
 
 [Ubuntu 18.04 server unable to ping websites but can ping IP addresses](https://askubuntu.com/questions/1108607/ubuntu-18-04-server-unable-to-ping-websites-but-can-ping-ip-addresses)
