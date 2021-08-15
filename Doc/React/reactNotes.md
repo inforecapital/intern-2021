@@ -1278,3 +1278,94 @@ function ChatRecipientPicker() {
 ## useCallback
 
 [理解React hook useCallback作用](https://blog.csdn.net/weixin_43905830/article/details/109008628)
+
+## 用useEffect和ref来解决报错：Can't perform a React state update on an unmounted component.
+
+报错信息：Warning: Can't perform a React state update on an unmounted component.
+This is a no-op, but it indicates a memory leak in your application.
+To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount
+method.
+
+Reproduce: cyberbrick gallery first delete a module and then choose exit --> cancel. 
+
+Reason: choosing exit --> cancel wouldn't save the operation and the browser will make a request to fetch all contents from database. The deleted module also made a fetch request. Thus, we have the warning printed in console.
+
+Solution:
+
+[Reference](https://www.akashmittal.com/cant-perform-react-state-update-unmounted-component/)
+
+The solution of our problem is to prevent updating state after a component is unmounted.
+
+But how we will know if a component is unmounted?
+
+React provides two solutions for these –
+
+In class based components componentWillUnmount() is called just before the unmounting of component.
+In functional components we return an anonymous function in useEffect() hook. This anonymous function gets called before a new render cycle. So we do all unmounting stuff there.
+
+Example: 
+```ts
+import React, {useState, useEffect, useRef} from 'react'
+export default App(){
+	const [count, setCount] = useState(1);
+	const isMountedVal = useRef(1);
+	
+	useEffect(() => {
+		isMountedVal.current = 1;
+		
+		return () => {isMountedVal.current = 0;};
+	})
+	
+	const updateState = (callback) => {
+		if(isMountedVal.current){
+			callback();
+		}
+	}
+	
+	return(
+		<div>
+			<p>Count: {count}</p>
+			<p><button onClick={() => updateState(() => setCount(count + 1))}>Increase Count by 1</button></p>
+		</div>
+	);
+}
+```
+
+Thus, I checked the code and realized this function in cyberbrick/web/src/component/gallery/dashboard/dashboardContainer
+made a request to server even it's unmounted:
+```ts
+const fetchContent = (date?: string) => {
+      if (eleId && isMounted.current) {
+        if (date)
+          props.fetchContentFn(eleId, date).then(res => setContent(res))
+        else
+          props.fetchContentFn(eleId).then(res => setContent(res))
+      }
+    }
+```
+
+So I add a useEffect to cancel subsription:
+
+```ts
+//cancel subsription when this component is unmounted, so that fetchContent won't make a request
+    useEffect(() => {
+      isMounted.current = true;
+
+      return () => { isMounted.current = false; };
+    }, [])
+
+    const fetchContent = (date?: string) => {
+      if (eleId && isMounted.current) {
+        if (date)
+          props.fetchContentFn(eleId, date).then(res => setContent(res))
+        else
+          props.fetchContentFn(eleId).then(res => setContent(res))
+      }
+    }
+
+```
+
+React useEffect:
+in each state, react captures the value and turns then to a constant.
+
+If you’re trying to write an effect that behaves differently depending on whether the component renders for the first time or not, you’re swimming against the tide! We’re failing at synchronizing if our result depends on the “journey” rather than the “destination”.

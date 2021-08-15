@@ -613,3 +613,122 @@ default: // no value ready to be received
 在 `select` 中使用发送操作并且有 `default` 可以确保发送不被阻塞！如果没有 `case`,`select` 就会一直阻塞。
 
 `select` 语句实现了一种监听模式,通常用在（无限）循环中；在某种情况下,通过 `break` 语句使循环退出。
+
+- 14.5. 通道、超时和计时器（Ticker）
+
+`time` 包中有一些有趣的功能可以和通道组合使用。
+
+其中就包含了 `time.Ticker` 结构体，这个对象以指定的时间间隔重复的向通道 C 发送时间值：
+
+```go
+type Ticker struct {
+    C <-chan Time // the channel on which the ticks are delivered.
+    // contains filtered or unexported fields
+    ...
+}
+```
+
+时间间隔的单位是 ns（纳秒，int64），在工厂函数 `time.NewTicker` 中以 `Duration` 类型的参数传入：`func Newticker(dur) *Ticker`。
+
+在协程周期性的执行一些事情（打印状态日志，输出，计算等等）的时候非常有用。
+
+调用 `Stop()` 使计时器停止，在 `defer` 语句中使用。这些都很好的适应 `select` 语句:
+```go
+ticker := time.NewTicker(updateInterval)
+defer ticker.Stop()
+...
+select {
+case u:= <-ch1:
+    ...
+case v:= <-ch2:
+    ...
+case <-ticker.C:
+    logState(status) // call some logging function logState
+default: // no value ready to be received
+    ...
+}
+```
+
+- 14.8. 惰性生成器的实现
+
+通过巧妙地使用空接口、闭包和高阶函数，我们能实现一个通用的惰性生产器的工厂函数 `BuildLazyEvaluator`（这个应该放在一个工具包中实现）。工厂函数需要一个函数和一个初始状态作为输入参数，返回一个无参、返回值是生成序列的函数。传入的函数需要计算出下一个返回值以及下一个状态参数。在工厂函数中，创建一个通道和无限循环的 go 协程。返回值被放到了该通道中，返回函数稍后被调用时从该通道中取得该返回值。每当取得一个值时，下一个值即被计算。
+
+- Futures
+所谓 Futures 就是指：有时候在你使用某一个值之前需要先对其进行计算。这种情况下，你就可以在另一个处理器上进行该值的计算，到使用时，该值就已经计算完毕了。
+
+例子：假设我们有一个矩阵类型，我们需要计算两个矩阵 A 和 B 乘积的逆，首先我们通过函数 Inverse(M) 分别对其进行求逆运算，在将结果相乘。如下函数 InverseProduct() 实现了如上过程：
+
+```go
+func InverseProduct(a Matrix, b Matrix) {
+    a_inv := Inverse(a)
+    b_inv := Inverse(b)
+    return Product(a_inv, b_inv)
+}
+```
+
+调用 Product 函数只需要等到 a_inv 和 b_inv 的计算完成。如下代码实现了并行计算方式：
+
+```go
+func InverseProduct(a Matrix, b Matrix) {
+    a_inv_future := InverseFuture(a)   // start as a goroutine
+    b_inv_future := InverseFuture(b)   // start as a goroutine
+    a_inv := <-a_inv_future
+    b_inv := <-b_inv_future
+    return Product(a_inv, b_inv)
+}
+```
+
+- 14.10.1 典型的客户端 - 服务端模式
+
+客户端可以是任何一种运行在任何设备上的，且需要来自服务端信息的一种程序，所以它需要发送请求。 服务端接收请求，做一些处理，然后把给客户端发送响应信息。在通常情况下，就是多个客户端（很多请求）对一个（或几个）服务端。一个常见例子就是我们使用的发送网页请求的客户端浏览器。然后一个 web 服务器将响应网页发回给浏览器。
+
+在 Go 中，服务端通常会在一个协程（goroutine）里操作对一个客户端的响应，所以协程和客户端请求是一一对应的。一种典型的做法就是客户端请求本身包含了一个频道（channel），服务端可以用它来发送响应。
+
+在下面的例子中，我们发送 100 个请求，并在所有请求发送完毕后，再逐个检查其返回的结果：
+
+```go
+func main() {
+
+    adder := startServer(func(a, b int) int { return a + b })
+
+    const N = 100
+
+    var reqs [N]Request
+
+    for i := 0; i < N; i++ {
+
+        req := &reqs[i]
+
+        req.a = i
+
+        req.b = i + N
+
+        req.replyc = make(chan int)
+
+        adder <- req
+
+        // adder is a channel of requests
+
+    }
+
+    // checks:
+
+    for i := N - 1; i >= 0; i-- { // doesn’t matter what order
+
+        if <-reqs[i].replyc != N+2*i {
+
+            fmt.Println(“fail at”, i)
+
+            } else {
+
+                fmt.Println(“Request “, i, “is ok!”)
+
+        }
+
+    }
+
+    fmt.Println(“done”)
+
+}
+```
+

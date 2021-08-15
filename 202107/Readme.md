@@ -36,6 +36,20 @@
 1. 修改了layout无法save的bug。将onLayoutChange作为props给ReactGridLayout，并update items（存tab的布局信息）。现在tabs在editable的状态下is resizable and draggable. Save后布局信息会保存。
 1. 为cyberbrick makefile添加了make debug的target
 
+## 07/26 - 08/01
+
+1. 把update items的feature也migrate到了cyberbrick NestedSimpleModule的source code中。
+1. NestedSimpleModule tab items 的font size now is responsive to container's size
+1. 新加了一个page用来创建模板库。在此界面module is creatable, draggable, and resizable; but not editable
+1. 尝试修复dashboard退出后无法刷新界面的bug。现在虽然可以刷新但是被delete的module无法重新fetch content
+
+cyberbrick 点击exit-cancel后若有删除过的module无法重新fetch content
+
+观察到的现象：在container中，elements数量为3，与数据库一致。在containerTemplate调用startFetchAllContents()时，elements数量为2，与被删除一个element后当前页面的状态一致。
+
+
+猜想：Container会收到最新的elements。但是containerTemplate在收到最新elements前就会调用startFetchAllContents()。因此会造成containerTemplate是以原有的elements(有element被删除的状态下)被调用了fetchContent。
+
 [docker网关冲突导致启动docker容器时服务器网络断开](https://blog.csdn.net/HYESC/article/details/88688884)
 
 [Ubuntu 18.04 server unable to ping websites but can ping IP addresses](https://askubuntu.com/questions/1108607/ubuntu-18-04-server-unable-to-ping-websites-but-can-ping-ip-addresses)
