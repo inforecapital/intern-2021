@@ -87,3 +87,26 @@ Fixed Bug list:
 Remaining Bug list:
 1. dataset menuItem missing key
 2. text editor第二次打开格式混乱
+
+## 08/16 - 08/22
+
+1. 重写了运行server-go的dockerFile. 将base image设为golang, server image built based on base image. 
+2. 将collection中type xlsxTable以及flexTable的content存进mongodb. 
+3. 重构了cyberbrick前端的代码以适应content.data变成"pointer data"
+4. 新写了一个fieldHeader的组件, 用作分隔页面内的板块, 用户编辑时可选择text, fontSize, and allignment. 展示模式时没有背景和边框.
+5. 重构nodejs中的contentMongo service, 使其read path from config.js
+6. modulePanel 在template模式下可以编辑description。存进element对应的table中。只有在template模式下才可以展示description
+7. 提醒用户在dashboard中若tabPane为空去配置新建界面。
+8. 重构server-go。将read config以及initialize database放进main.go; 新建middleware用来处理header.
+
+
+## GO-MONGO-API Manual:
+
+### 新增collection type
+
+1. docker/docker-mongodb/.env中将新增的elementType填入DB_COLLECTION_NAME中，并执行./create_unique_index
+2. web/server/gallery/provider/contentMongo.service.ts 中，修改 `async saveContentToMongoOrPgByType(type: string, content: Content)`的switch statement, 将新增的elementType加入case中, 并 `return this.saveContentToMongo(type, content)`
+3. web/server/gallery/common.ts中, 修改`const shouldQueryAfterRecevingContent`的switch语句, 将新增的elementType加入case中, 并 `return true`
+4. web/server/gallery/common.ts中, 修改`const ContentValidationByType`的switch语句, 将新增的elementType加入case中, 并 `return MongoContentValidation(data)`
+5. resources/go.env中, 新增的elementType填入`DB_COLLECTION_NAME`中。
+
